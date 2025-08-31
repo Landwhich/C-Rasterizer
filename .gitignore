@@ -2,4 +2,4 @@
 
 *.exe
 *.txt
-*.bmp
+./*.bmp
