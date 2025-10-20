@@ -4,7 +4,7 @@
 
 float dotProduct(float2 a, float2 b);
 
-float2 makePerpedicular(float2 oldVec);
+float2 makePerpendicular(float2 oldVec);
 
 bool pointOnRightSideOfLine(float2 a, float2 b, float2 p);
 
