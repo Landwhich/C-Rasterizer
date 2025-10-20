@@ -4,11 +4,10 @@
 #include "helpers/bitmapEncoder.c"
 #include "helpers/rasterMath.c"
 
-
 void CreateTestImage()
 {
-    const int width = 128;
-    const int height = 128;
+    const int width = 512;
+    const int height = 512;
     float3** image = malloc(height * sizeof(float3*));
     for (int i = 0; i < height; i++){
         image[i] = malloc(width * sizeof(float3));
@@ -25,12 +24,11 @@ void CreateTestImage()
             float2 pixel = {x, y};
             bool insideTriangle = pointInTriangle(a, b, c, pixel);
             if (insideTriangle){image[y][x] = (float3){1,1,1};}
-            // if (pixel.x == a.x && pixel.y == a.y ||
-            //     pixel.x == b.x && pixel.y == b.y ||
-            //     pixel.x == c.x && pixel.y == c.y)
-            // {image[x][y] = (float3){1,0,0};}
         }  
     }
+    // image[(int)a.y][(int)a.x] = (float3){1,0,0};
+    // image[(int)b.y][(int)b.x] = (float3){1,0,0};
+    // image[(int)c.y][(int)c.x] = (float3){1,0,0};
 
     createBMP("img.bmp", width, height, image);
 
