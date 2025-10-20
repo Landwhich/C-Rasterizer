@@ -24,7 +24,7 @@ void CreateTestImage()
         {
             float2 pixel = {x, y};
             bool insideTriangle = pointInTriangle(a, b, c, pixel);
-            if (insideTriangle){image[x][y] = (float3){1,1,1};}
+            if (insideTriangle){image[y][x] = (float3){1,1,1};}
             // if (pixel.x == a.x && pixel.y == a.y ||
             //     pixel.x == b.x && pixel.y == b.y ||
             //     pixel.x == c.x && pixel.y == c.y)
