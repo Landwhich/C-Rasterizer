@@ -1,31 +1,38 @@
 // #include <stdio.h>
 #include <stdlib.h>
-#include "bitmapEncoder.h"
-// #include "dataTypes.c"
+#include "types/primitives/genericTypes.c"
+#include "helpers/bitmapEncoder.c"
+#include "helpers/rasterMath.c"
 
 
 void CreateTestImage()
 {
-    const int width = 512;
-    const int height = 512;
+    const int width = 128;
+    const int height = 128;
     float3** image = malloc(height * sizeof(float3*));
     for (int i = 0; i < height; i++){
         image[i] = malloc(width * sizeof(float3));
     }
 
+    float2 a = {0.2f * (float)width, 0.2f * (float)height};
+    float2 b = {0.7f * (float)width, 0.5f * (float)height};
+    float2 c = {0.4f * (float)width, 0.8f * (float)height};
+
     for(int y = 0; y < height; y++)
     {
         for(int x = 0; x < width; x++)
         {
-            float r = (float)x / (width -1);
-            float g = (float)y / (height -1); //normalize to [0,1]? / (width - 1)
-            image[y][x] = (float3){ r, g, 0.0f};
-            // printf("%f \n",image[y][x].y);
-        }
-        
+            float2 pixel = {x, y};
+            bool insideTriangle = pointInTriangle(a, b, c, pixel);
+            if (insideTriangle){image[y][x] = (float3){1,1,1};}
+            // if (pixel.x == a.x && pixel.y == a.y ||
+            //     pixel.x == b.x && pixel.y == b.y ||
+            //     pixel.x == c.x && pixel.y == c.y)
+            // {image[x][y] = (float3){1,0,0};}
+        }  
     }
 
-    createBMP("../img.bmp", width, height, image);
+    createBMP("img.bmp", width, height, image);
 
     for (int i = 0; i < height; i++){
         free(image[i]);
@@ -35,29 +42,7 @@ void CreateTestImage()
     printf("image updated!!!");
 }
 
-//     // Convert float3 to uint8_t array (row-major RGB)
-//     uint8_t *rgbData = malloc(width * height * 3);
-//     for (int y = 0; y < height; y++) {
-//         for (int x = 0; x < width; x++) {
-//             int index = (y * width + x) * 3;
-//             rgbData[index + 0] = (uint8_t)(image[y][x].x * 255.0f); // Red
-//             rgbData[index + 1] = (uint8_t)(image[y][x].y * 255.0f); // Green
-//             rgbData[index + 2] = (uint8_t)(image[y][x].z * 255.0f); // Blue
-//         }
-//     }
-
-    // Now write BMP file with proper RGB byte data
-//     createBMP("img.txt", width, height, rgbData);
-
-//     // Free float3 image
-
-//     free(rgbData);
-
-// 
-
 int main(){
-
     CreateTestImage();
-
     return 0;
 }

@@ -2,4 +2,5 @@
 
 *.exe
 *.txt
-./*.bmp
+*.bmp
+/!readmeAssets/*
