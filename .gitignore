@@ -3,4 +3,4 @@
 *.exe
 *.txt
 *.bmp
-/!readmeAssets/*
+!readmeAssets/*
