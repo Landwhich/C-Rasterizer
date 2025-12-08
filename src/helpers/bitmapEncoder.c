@@ -34,7 +34,7 @@ typedef struct{
 //     pixel.x = 
 // }
 
-void createBMP(const char* filename, const int width, const int height, float3** imgData){
+void createBMP(const char* filename, const int width, const int height, rasterizer_float3** imgData){
     FILE *file = fopen(filename, "wb");
     if (!file) return;
 

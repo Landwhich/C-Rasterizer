@@ -1,6 +1,8 @@
 .vscode
 
 *.exe
+main
+*.o
 *.txt
 *.bmp
 !readmeAssets/*
