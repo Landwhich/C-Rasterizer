@@ -1,7 +1,7 @@
 .vscode
 
 *.exe
-main
+rasterizer
 *.o
 *.txt
 *.bmp

@@ -15,3 +15,4 @@ rasterizer: $(OBJS)
 
 clean:
 	rm -f $(OBJS) rasterizer
+	
