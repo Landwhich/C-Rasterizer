@@ -5,8 +5,6 @@ void raylibRasterizerRun(){
 
     Texture2D texture = LoadTextureFromImage(GenImageColor(SCREEN_WIDTH, SCREEN_HEIGHT, BLACK));
 
-    // Color* textColBuffer = malloc(SCREEN_WIDTH * SCREEN_WIDTH * sizeof(Color));
-
     SetTargetFPS(60);
 
     while(!WindowShouldClose()){
