@@ -2,7 +2,11 @@
 
 *.exe
 rasterizer
+
 *.o
 *.txt
 *.bmp
+
+zanim
+
 !readmeAssets/*
