@@ -54,6 +54,7 @@ int main(){
         printf("Generating: %s\n", filename);
     }
 
+    // don't like ppm, seems slower too somehow? like 20% slower
     // CreateTestImage("img.ppm", rotation, monkey);
 
     clock_t end = clock();
