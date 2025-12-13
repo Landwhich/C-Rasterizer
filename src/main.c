@@ -2,16 +2,18 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "raylib/raylibRenderer.h"
-
+#include "constants.h"
 #include "types/primitives/genericTypes.h"
+#include "types/objectTypes.h"
 #include "types/transformTypes.h"
+
+#include "raylib/raylibRenderer.h"
+#include "renderer.h"
+
 #include "helpers/encoders/bitmapEncoder.h"
 // #include "helpers/encoders/ppmEncoder.h"
 #include "helpers/rasterMath.h"
 #include "helpers/objParser.h"
-#include "renderer.h"
-#include "constants.h"
 
 void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj){
     rasterizer_float3** image = malloc(SCREEN_HEIGHT * sizeof(rasterizer_float3*));
