@@ -6,7 +6,8 @@
 
 #include "types/primitives/genericTypes.h"
 #include "types/transformTypes.h"
-#include "helpers/bitmapEncoder.h"
+#include "helpers/encoders/bitmapEncoder.h"
+// #include "helpers/encoders/ppmEncoder.h"
 #include "helpers/rasterMath.h"
 #include "helpers/objParser.h"
 #include "renderer.h"
@@ -44,14 +45,16 @@ int main(){
         .pitch = 0,
         .yaw = 0,
     };
+
+    // Animate .bmps with ffmpeg
     for (int i = 0; i < 96; i++){
-        sprintf(filename, "zanim/output-%03d.bmp", i);
+        sprintf(filename, "zanim/output-%03d.ppm", i);
         CreateTestImage(filename, rotation, monkey);
         rotation.yaw += M_PI/48;
         printf("Generating: %s\n", filename);
     }
 
-    // CreateTestImage("img.bmp", rotation, monkey);
+    // CreateTestImage("img.ppm", rotation, monkey);
 
     clock_t end = clock();
     double timeSpent = (double)(end - begin) / CLOCKS_PER_SEC;
