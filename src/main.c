@@ -14,6 +14,8 @@
 // #include "helpers/encoders/ppmEncoder.h"
 #include "helpers/rasterMath.h"
 #include "helpers/objParser.h"
+#include "renderer.h"
+#include "constants.h"
 
 void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj){
     rasterizer_float3** image = malloc(SCREEN_HEIGHT * sizeof(rasterizer_float3*));
