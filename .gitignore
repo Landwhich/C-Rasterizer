@@ -6,6 +6,7 @@ rasterizer
 *.o
 *.txt
 *.bmp
+*.ppm
 
 zanim
 

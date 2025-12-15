@@ -52,9 +52,11 @@ int main(){
 
     // Animate .bmps with ffmpeg
     for (int i = 0; i < 96; i++){
-        sprintf(filename, "zanim/output-%03d.ppm", i);
+        sprintf(filename, "zanim/output-%03d.bmp", i);
         CreateTestImage(filename, rotation, monkey);
         rotation.yaw += M_PI/48;
+        rotation.pitch += M_PI/48;
+        rotation.roll += M_PI/92;
         printf("Generating: %s\n", filename);
     }
 

@@ -1,14 +1,14 @@
 # 3D Rasterizer written in C
-makes cubes spin
+glorified cube spinner
+
+## Dependecies:
+- [raylib](https://github.com/raysan5/raylib) (included in libs/folder)
+- using `make` to build
+- using `ffmpeg -i image(%03d).bmp -r 30 output.mp4` to stitch images to animations 
 
 ## Installation
 - `git clone` in your root folder
 - run `make` to build and run with `./rasterizer`
-
-### Dependecies:
-- [raylib](https://github.com/raysan5/raylib) (included in libs/folder)
-- using `make` to build
-- using `ffmpeg -i image(%03d).bmp -r 30 output.mp4` to stitch images to animations 
 
 ## features
 - Using .bmp to render images may move to .ppm and plan to move to live rendering in raylib soon

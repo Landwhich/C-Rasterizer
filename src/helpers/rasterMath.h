@@ -21,5 +21,5 @@ _Bool pointInTriangle(rasterizer_float2 a, rasterizer_float2 b, rasterizer_float
 rasterizer_float2 vertexToScreenSpace(rasterizer_float3 vertex, rotMatDeg rotations, rasterizer_float2 numPixels);
 //Rotation 
 rotationMatrix getTransformMatrix(rotMatDeg rmd);
-rasterizer_float3 transformVector(rotMatDeg rmd, rasterizer_float3 v);
+inline rasterizer_float3 transformVector(rotationMatrix rmd, rasterizer_float3 v);
 
