@@ -13,3 +13,9 @@ typedef struct{
     rasterizer_float3 jhat;
     rasterizer_float3 khat;
 }rotationMatrix;
+
+// typedef struct{
+//     rasterizer_float3 deltaX;
+//     rasterizer_float3 deltaY;
+//     rasterizer_float3 deltaZ;
+// }positionMatrix;

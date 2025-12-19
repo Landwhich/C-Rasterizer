@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-void render(Object obj, const int screenWidth, const int screenHeight, rasterizer_float3** image, rotMatDeg rotation) {
+void render(Object obj, const int screenWidth, const int screenHeight, rasterizer_float3** image, rotMatDeg rotation, rasterizer_float3 position) {
 
     const rasterizer_float2 screenSize = {screenWidth, screenHeight};
 
@@ -11,9 +11,9 @@ void render(Object obj, const int screenWidth, const int screenHeight, rasterize
 
     // render Image
     for(size_t i = 0; i < obj.size; i+=3){
-        rasterizer_float2 a = vertexToScreenSpace(obj.triangles[i + 0].position, rotation, screenSize);
-        rasterizer_float2 b = vertexToScreenSpace(obj.triangles[i + 1].position, rotation, screenSize);
-        rasterizer_float2 c = vertexToScreenSpace(obj.triangles[i + 2].position, rotation, screenSize);
+        rasterizer_float2 a = vertexToScreenSpace(obj.triangles[i + 0].position, rotation, screenSize, position);
+        rasterizer_float2 b = vertexToScreenSpace(obj.triangles[i + 1].position, rotation, screenSize, position);
+        rasterizer_float2 c = vertexToScreenSpace(obj.triangles[i + 2].position, rotation, screenSize, position);
 
         rasterizer_float3 color;
         if      (i % 6 == 0)    {color = (rasterizer_float3){200,0,0};}

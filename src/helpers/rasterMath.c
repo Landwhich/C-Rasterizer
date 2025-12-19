@@ -28,12 +28,13 @@ _Bool pointInTriangle(rasterizer_float2 a, rasterizer_float2 b, rasterizer_float
 }
 
 // VECTOR TRANSFORMS
-rasterizer_float2 vertexToScreenSpace(rasterizer_float3 v, rotMatDeg rotationsDeg, rasterizer_float2 numPixels){
+rasterizer_float2 vertexToScreenSpace(rasterizer_float3 v, rotMatDeg rotationsDeg, rasterizer_float2 numPixels, rasterizer_float3 p){
 
     rotationMatrix rotations = getTransformMatrix(rotationsDeg);
-    rasterizer_float3 vertex = transformVector(rotations, v);
+    rasterizer_float3 vertex = transformVectorRotate(rotations, v);
+    vertex = transformVectorPosition(p, vertex);
 
-    float pixelsPerWorldUnit = numPixels.y / SCREEN_HEIGHT_WORLD;
+    float pixelsPerWorldUnit = numPixels.y / SCREEN_HEIGHT_WORLD / vertex.z;
 
     rasterizer_float2 pixelOffset = {
         vertex.x * pixelsPerWorldUnit,
@@ -60,22 +61,30 @@ rotationMatrix getTransformMatrix(rotMatDeg rmd){
         .khat = 0, 0, 1,
     };
     rotationMatrix rotMatrix_yawPitch = {
-        .ihat = transformVector(rotMatrix_yaw, rotMatrix_pitch.ihat),
-        .jhat = transformVector(rotMatrix_yaw, rotMatrix_pitch.jhat),
-        .khat = transformVector(rotMatrix_yaw, rotMatrix_pitch.khat),
+        .ihat = transformVectorRotate(rotMatrix_yaw, rotMatrix_pitch.ihat),
+        .jhat = transformVectorRotate(rotMatrix_yaw, rotMatrix_pitch.jhat),
+        .khat = transformVectorRotate(rotMatrix_yaw, rotMatrix_pitch.khat),
     };
     rotationMatrix rotMatrix = {
-        .ihat = transformVector(rotMatrix_yawPitch, rotMatrix_roll.ihat),
-        .jhat = transformVector(rotMatrix_yawPitch, rotMatrix_roll.jhat),
-        .khat = transformVector(rotMatrix_yawPitch, rotMatrix_roll.khat),
+        .ihat = transformVectorRotate(rotMatrix_yawPitch, rotMatrix_roll.ihat),
+        .jhat = transformVectorRotate(rotMatrix_yawPitch, rotMatrix_roll.jhat),
+        .khat = transformVectorRotate(rotMatrix_yawPitch, rotMatrix_roll.khat),
     };
     return rotMatrix;
 }
-rasterizer_float3 transformVector(rotationMatrix rotMatrix, rasterizer_float3 v){
+rasterizer_float3 transformVectorRotate(rotationMatrix rotMatrix, rasterizer_float3 v){
     rasterizer_float3 vector = {
         .x = v.x * rotMatrix.ihat.x + v.y * rotMatrix.jhat.x + v.z * rotMatrix.khat.x,
         .y = v.x * rotMatrix.ihat.y + v.y * rotMatrix.jhat.y + v.z * rotMatrix.khat.y,
         .z = v.x * rotMatrix.ihat.z + v.y * rotMatrix.jhat.z + v.z * rotMatrix.khat.z
     };
     return vector;
+}
+
+rasterizer_float3 transformVectorPosition(rasterizer_float3 p, rasterizer_float3 v){
+    return (rasterizer_float3){
+        v.x + p.x,
+        v.y + p.y,
+        v.z + p.z
+    };
 }

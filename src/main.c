@@ -17,13 +17,13 @@
 #include "renderer.h"
 #include "constants.h"
 
-void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj){
+void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj, rasterizer_float3 position){
     rasterizer_float3** image = malloc(SCREEN_HEIGHT * sizeof(rasterizer_float3*));
     for (int i = 0; i < SCREEN_HEIGHT; i++){
         image[i] = malloc(SCREEN_WIDTH * sizeof(rasterizer_float3));
     }
 
-    render(obj, SCREEN_WIDTH, SCREEN_HEIGHT, image, rotation);
+    render(obj, SCREEN_WIDTH, SCREEN_HEIGHT, image, rotation, position);
 
     createBMP(filename, SCREEN_WIDTH, SCREEN_HEIGHT, image);
 
@@ -39,7 +39,7 @@ void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj){
 
 int main(){
 
-    // Object cube = loadModel("assets/models/cube.obj");
+    Object cube = loadModel("assets/models/cube.obj");
     Object monkey = loadModel("assets/models/monkey.obj");
 
     clock_t begin = clock();
@@ -50,10 +50,16 @@ int main(){
         .yaw = 0,
     };
 
+    rasterizer_float3 position = {
+        .x = 0,
+        .y = 0,
+        .z = 2,
+    };
+
     // Animate .bmps with ffmpeg
     for (int i = 0; i < 96; i++){
         sprintf(filename, "zanim/output-%03d.bmp", i);
-        CreateTestImage(filename, rotation, monkey);
+        CreateTestImage(filename, rotation, monkey, position);
         rotation.yaw += M_PI/48;
         rotation.pitch += M_PI/48;
         rotation.roll += M_PI/92;
@@ -61,7 +67,7 @@ int main(){
     }
 
     // don't like ppm, seems slower too somehow? like 20% slower
-    // CreateTestImage("img.ppm", rotation, monkey);
+    // CreateTestImage("img.bmp", rotation, cube, position);
 
     clock_t end = clock();
     double timeSpent = (double)(end - begin) / CLOCKS_PER_SEC;
