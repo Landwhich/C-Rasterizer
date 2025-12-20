@@ -40,7 +40,8 @@ void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj, raste
 int main(){
 
     Object cube = loadModel("assets/models/cube.obj");
-    Object monkey = loadModel("assets/models/monkey.obj");
+    Object bigCube = loadModel("assets/models/bigCube.obj");
+    // Object monkey = loadModel("assets/models/monkey.obj");
 
     clock_t begin = clock();
     char filename[25]; 
@@ -53,16 +54,16 @@ int main(){
     rasterizer_float3 position = {
         .x = 0,
         .y = 0,
-        .z = 2,
+        .z = 5,
     };
 
     // Animate .bmps with ffmpeg
     for (int i = 0; i < 96; i++){
         sprintf(filename, "zanim/output-%03d.bmp", i);
-        CreateTestImage(filename, rotation, monkey, position);
+        CreateTestImage(filename, rotation, bigCube, position);
         rotation.yaw += M_PI/48;
         rotation.pitch += M_PI/48;
-        rotation.roll += M_PI/92;
+        rotation.roll += M_PI/96;
         printf("Generating: %s\n", filename);
     }
 
@@ -73,8 +74,10 @@ int main(){
     double timeSpent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Total TimeSpent: %f", timeSpent);
 
-    free(monkey.triangles);
-    monkey.triangles = NULL;
+    free(cube.triangles);
+    cube.triangles = NULL;
+    free(bigCube.triangles);
+    bigCube.triangles = NULL;
 
     // raylibRasterizerRun();
 

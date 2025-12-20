@@ -34,7 +34,8 @@ rasterizer_float2 vertexToScreenSpace(rasterizer_float3 v, rotMatDeg rotationsDe
     rasterizer_float3 vertex = transformVectorRotate(rotations, v);
     vertex = transformVectorPosition(p, vertex);
 
-    float pixelsPerWorldUnit = numPixels.y / SCREEN_HEIGHT_WORLD / vertex.z;
+    float screenHeightWorld = tanf(FOV / 2) * 2;
+    float pixelsPerWorldUnit = numPixels.y / screenHeightWorld / vertex.z;
 
     rasterizer_float2 pixelOffset = {
         vertex.x * pixelsPerWorldUnit,
