@@ -7,4 +7,4 @@
 // #include "types/transformTypes.h"
 #include "helpers/rasterMath.h"
 
-void render(Object obj, const int screenWidth, const int screenHeight, rasterizer_float3** image, rotMatDeg rotation);
+void render(Object obj, const int screenWidth, const int screenHeight, rasterizer_float3** image, rotMatDeg rotation, rasterizer_float3 position);
