@@ -2,23 +2,28 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "raylib/raylibRenderer.h"
-
+#include "constants.h"
 #include "types/primitives/genericTypes.h"
+#include "types/objectTypes.h"
 #include "types/transformTypes.h"
-#include "helpers/bitmapEncoder.h"
+
+#include "raylib/raylibRenderer.h"
+#include "renderer.h"
+
+#include "helpers/encoders/bitmapEncoder.h"
+// #include "helpers/encoders/ppmEncoder.h"
 #include "helpers/rasterMath.h"
 #include "helpers/objParser.h"
 #include "renderer.h"
 #include "constants.h"
 
-void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj){
+void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj, rasterizer_float3 position){
     rasterizer_float3** image = malloc(SCREEN_HEIGHT * sizeof(rasterizer_float3*));
     for (int i = 0; i < SCREEN_HEIGHT; i++){
         image[i] = malloc(SCREEN_WIDTH * sizeof(rasterizer_float3));
     }
 
-    render(obj, SCREEN_WIDTH, SCREEN_HEIGHT, image, rotation);
+    render(obj, SCREEN_WIDTH, SCREEN_HEIGHT, image, rotation, position);
 
     createBMP(filename, SCREEN_WIDTH, SCREEN_HEIGHT, image);
 
@@ -34,8 +39,9 @@ void CreateTestImage(const char* filename, rotMatDeg rotation, Object obj){
 
 int main(){
 
-    // Object cube = loadModel("assets/models/cube.obj");
-    Object monkey = loadModel("assets/models/monkey.obj");
+    Object cube = loadModel("assets/models/cube.obj");
+    Object bigCube = loadModel("assets/models/bigCube.obj");
+    // Object monkey = loadModel("assets/models/monkey.obj");
 
     clock_t begin = clock();
     char filename[25]; 
@@ -44,21 +50,34 @@ int main(){
         .pitch = 0,
         .yaw = 0,
     };
+
+    rasterizer_float3 position = {
+        .x = 0,
+        .y = 0,
+        .z = 5,
+    };
+
+    // Animate .bmps with ffmpeg
     for (int i = 0; i < 96; i++){
         sprintf(filename, "zanim/output-%03d.bmp", i);
-        CreateTestImage(filename, rotation, monkey);
+        CreateTestImage(filename, rotation, bigCube, position);
         rotation.yaw += M_PI/48;
+        rotation.pitch += M_PI/48;
+        rotation.roll += M_PI/96;
         printf("Generating: %s\n", filename);
     }
 
-    // CreateTestImage("img.bmp", rotation, monkey);
+    // don't like ppm, seems slower too somehow? like 20% slower
+    // CreateTestImage("img.bmp", rotation, cube, position);
 
     clock_t end = clock();
     double timeSpent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Total TimeSpent: %f", timeSpent);
 
-    free(monkey.triangles);
-    monkey.triangles = NULL;
+    free(cube.triangles);
+    cube.triangles = NULL;
+    free(bigCube.triangles);
+    bigCube.triangles = NULL;
 
     // raylibRasterizerRun();
 
