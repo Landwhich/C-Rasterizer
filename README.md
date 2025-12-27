@@ -15,5 +15,7 @@ glorified cube spinner
 - .obj parsing and loading. able to parse normals and textures, but no lighting or texture mapping implemented as of yet
 - Rotation of 3D objects
 
-https://github.com/user-attachments/assets/de00242a-de1c-457d-a0d0-3d6289f5c2ae
+https://github.com/user-attachments/assets/3dc11d8c-a584-4182-92c2-2f994268308d
+
+
 
